@@ -6,4 +6,12 @@ function reverseString(string) {
   return newString;
 }
 
+function reverseString2(string) {
+  return string
+    .split("")
+    .reverse()
+    .join("");
+}
+
 console.log(reverseString("hello"));
+console.log(reverseString2("hello"));
