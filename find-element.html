@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="a1">
+      1
+      <div id="b1">
+        2
+        <div id="d1">3</div>
+        <div id="e1">4</div>
+      </div>
+      <div id="c1">
+        5
+        <div id="f1">
+          6
+          <div id="g1">7</div>
+          <div id="h1">8</div>
+        </div>
+      </div>
+    </div>
+    <div id="a2">
+      9
+      <div id="b2">
+        10
+        <div id="d2">11</div>
+        <div id="e2">12</div>
+      </div>
+      <div id="c2">
+        13
+        <div id="f2">
+          14
+          <div id="g2">15</div>
+          <div id="h2">16</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function getPath(element) {
+        const path = [];
+        let parent;
+        while (element.parentElement.tagName === "DIV") {
+          parent = element.parentElement;
+          path.push(Array.from(parent.children).indexOf(element));
+          element = parent;
+        }
+        return path.reverse();
+      }
+
+      function getElement(element, path) {
+        path.forEach(childIndex => {
+          element = element.children.item(childIndex);
+        });
+        return element;
+      }
+
+      const path = getPath(document.querySelector("#g1"));
+      console.log(path);
+      const element = getElement(document.querySelector("#a2"), path);
+      console.log(element);
+      const path2 = getPath2(document.querySelector("#g1"));
+      console.log(path2);
+      const element2 = getElement(document.querySelector("#a2"), path2);
+      console.log(element2);
+
+      //////////////
+
+      function getPath2(element, root) {
+        const path = [];
+        while (element.parentElement.tagName === "DIV") {
+          const index = [...element.parentElement.children].indexOf(element);
+          path.push(index);
+          element = element.parentElement;
+        }
+        return path.reverse();
+      }
+    </script>
+  </body>
+</html>
