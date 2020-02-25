@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add List</title>
+  </head>
+  <body>
+    <div>
+      <div class="foods">
+        Best foods
+      </div>
+    </div>
+    <script>
+      function addList(root, foodData) {
+        const list = document.createElement("ul");
+        root.appendChild(list);
+        foodData.forEach(item => {
+          const li = document.createElement("li");
+          li.innerText = item.item + " " + item.icon;
+          li.addEventListener("click", function() {
+            this.remove();
+          });
+          list.appendChild(li);
+        });
+      }
+
+      function addList2(root, foodData) {
+        const list = document.createElement("ul");
+        list.addEventListener("click", function(event) {
+          const child = Array.from(this.children).find(
+            child => child.attributes.id.value.toString() === event.target.id
+          );
+          child.remove();
+        });
+        root.appendChild(list);
+        foodData.forEach(item => {
+          const li = document.createElement("li");
+          li.innerText = item.item + " " + item.icon;
+          li.setAttribute("id", item.id);
+          list.appendChild(li);
+        });
+      }
+
+      function addList3(root, foodData) {
+        const list = document.createElement("ul");
+        list.addEventListener("click", function(event) {
+          const id = event.target.id;
+          const li = document.getElementById(id);
+          li.remove();
+        });
+        root.appendChild(list);
+        foodData.forEach(item => {
+          const li = document.createElement("li");
+          li.innerText = item.item + " " + item.icon;
+          li.setAttribute("id", item.id);
+          list.appendChild(li);
+        });
+      }
+
+      class addList4 {
+        constructor(root, foodData) {
+          this._root = root;
+          this._foodData = foodData;
+          const list = document.createElement("ul");
+          list.addEventListener("click", event => {
+            event.target.remove();
+          });
+          root.appendChild(list);
+
+          this.addItems(list);
+        }
+
+        addItem(parent, item) {
+          const li = document.createElement("li");
+          li.innerText = item.item + " " + item.icon;
+          parent.appendChild(li);
+        }
+
+        addItems(list) {
+          const fragment = document.createDocumentFragment();
+          this._foodData.forEach(item => {
+            this.addItem(fragment, item);
+          });
+          list.appendChild(fragment);
+        }
+      }
+
+      const foodData = [
+        {
+          id: 0,
+          item: "Taco",
+          icon: "🌮"
+        },
+        {
+          id: 1,
+          item: "Pizza",
+          icon: "🍕"
+        },
+        {
+          id: 2,
+          item: "Cupcake",
+          icon: "🍜"
+        },
+        {
+          id: 3,
+          item: "Fries",
+          icon: "🍟"
+        }
+      ];
+
+      const myList = new addList4(
+        document.getElementsByClassName("foods")[0],
+        foodData
+      );
+    </script>
+  </body>
+</html>
